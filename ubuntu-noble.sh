@@ -19,7 +19,7 @@ create_template() {
     qm create "$id" --name "$name" --ostype l26
     qm set "$id" --net0 virtio,bridge=vmbr0 \
                 --serial0 socket --vga serial0 \
-                --memory 1024 --cores 1 --cpu host \
+                --memory 2048 --cores 2 --cpu host \
                 --scsihw virtio-scsi-single \
                 --agent enabled=1,fstrim_cloned_disks=1 \
                 --ide2 "${pool}:cloudinit" \
@@ -33,7 +33,7 @@ create_template() {
     qm set "$id" --boot order=scsi0
 
     # resize
-    qm disk resize "$id" scsi0 8G || true
+    qm disk resize "$id" scsi0 50G || true
 
     # mark as template
     qm template "$id"
